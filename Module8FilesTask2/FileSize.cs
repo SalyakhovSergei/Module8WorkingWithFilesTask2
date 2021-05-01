@@ -18,14 +18,23 @@ namespace Module8Files
             
             if (dirInfo.Exists)
             {
-                foreach (FileInfo file in FI)
+                try
                 {
-                    allFileSize += file.Length;                 
+                    foreach (FileInfo file in FI)
+                    {
+                        allFileSize += file.Length;
+                    }
+                    foreach (DirectoryInfo DI in directories)
+                    {
+                        allFileSize += FileSizeCount(DI.FullName);
+                    }
                 }
-                foreach (DirectoryInfo DI in directories)
+
+                catch (IOException e)
                 {
-                    allFileSize += FileSizeCount(DI.FullName);
+                    Console.WriteLine(e.Message);
                 }
+                
             }
              return allFileSize;
         }
